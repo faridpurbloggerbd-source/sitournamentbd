@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function A() { return request.auth != null; }
+    function adm() { return A() && exists(/databases/$(db)/documents/admins/$(request.auth.uid)); }
+    function active() { return get(/databases/$(db)/documents/users/$(request.auth.uid)).data.bl in [0, false]; }
+    function mine() { return A() && request.resource.data.u == request.auth.uid && active(); }
+
+    match /admins/{u} { allow read: if A() && request.auth.uid == u; }
+
+    match /site/{d} { allow read: if true; allow write: if adm(); }
+    match /T/{d}    { allow read: if true; allow write: if adm(); }
+    match /res/{d}  { allow read: if true; allow write: if adm(); }
+    match /ann/{d}  { allow read: if true; allow write: if adm(); }
+
+    match /users/{u} {
+      allow read: if A() && (request.auth.uid == u || adm());
+      allow create: if A() && request.auth.uid == u && request.resource.data.role == 'user'
+        && request.resource.data.ver in [0, false] && request.resource.data.bl in [0, false];
+      allow update, delete: if adm();
+    }
+    match /usernames/{n} { allow create: if A() && request.resource.data.u == request.auth.uid; }
+    match /phones/{n}    { allow create: if A() && request.resource.data.u == request.auth.uid; }
+
+    match /dep/{d} {
+      allow read: if A() && (resource.data.u == request.auth.uid || adm());
+      allow create: if mine() && request.resource.data.st == 'Pending' && request.resource.data.amt > 0;
+      allow update, delete: if adm();
+    }
+    match /wd/{d} {
+      allow read: if A() && (resource.data.u == request.auth.uid || adm());
+      allow create: if mine() && request.resource.data.st == 'Pending' && request.resource.data.amt > 0
+        && get(/databases/$(db)/documents/users/$(request.auth.uid)).data.ver in [1, true];
+      allow update, delete: if adm();
+    }
+    match /reg/{d} {
+      allow read: if A() && (resource.data.u == request.auth.uid || adm());
+      allow create: if mine() && d == request.resource.data.t + '_' + request.auth.uid
+        && request.resource.data.st == 'Pending'
+        && get(/databases/$(db)/documents/T/$(request.resource.data.t)).data.st == 'Registration Open'
+        && request.resource.data.fee == get(/databases/$(db)/documents/T/$(request.resource.data.t)).data.f;
+      allow update, delete: if adm();
+    }
+    match /nt/{d}  { allow read: if A() && (resource.data.u == request.auth.uid || adm()); allow write: if adm(); }
+    match /led/{d} { allow read: if A() && (resource.data.u == request.auth.uid || adm()); allow write: if adm(); }
+    match /au/{d}  { allow read, write: if adm(); }
+    match /act/{a} {
+      allow read: if adm();
+      allow create: if A() && request.resource.data.u == request.auth.uid
+        && a == request.resource.data.d + '_' + request.auth.uid;
+    }
+  }
+}

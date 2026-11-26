@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SI Tournament BD | Admin</title>
+<meta name="description" content="SI Tournament BD admin panel">
+<meta name="theme-color" content="#05050f">
+<meta property="og:title" content="SI Tournament BD | Admin">
+<meta property="og:description" content="SI Tournament BD admin panel">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05050f;--bg2:#0a0a1c;--card:#10102a;--line:#25254d;--red:#7c3aed;--red2:#22d3ee;--mut:#a1a1aa;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:#fff;font:500 18px/1.5 "Rajdhani",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3,.logo{font-family:"Orbitron","Arial Black",sans-serif;margin:0}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,10,12,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-size:17px;font-weight:900}.logo b,.pz{color:var(--red2)}
+nav{display:flex;gap:20px}nav a{font-weight:600;color:var(--mut);transition:.2s}nav a:hover{color:#fff}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px 14px;font-weight:700;font-size:16px}.pill:hover{border-color:var(--red)}
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;gap:0;background:rgba(10,10,12,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;color:var(--mut);font-size:13px;font-weight:700;cursor:pointer;transition:.2s}.bn a.on{color:var(--red2)}.bn svg{width:24px;height:24px}
+.sup{position:fixed;right:14px;bottom:calc(78px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:24}
+.sup a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.5);transition:.2s}.sup a:hover{transform:scale(1.1)}.sup .wa{background:#25D366}.sup .tg{background:#2AABEE}.sup svg{width:28px;height:28px}
+body footer{padding-bottom:90px}
+.bsec{padding:16px 0 8px}.bnr{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/9;max-width:860px;margin-left:auto;margin-right:auto;background:var(--card);border:1px solid var(--line)}
+.sl{position:absolute;inset:0;opacity:0;transition:opacity .6s;display:block}.sl.on{opacity:1;z-index:1}.sl img{width:100%;height:100%;object-fit:cover;display:block}
+.dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:7px;z-index:2}.dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}.dots i.on{background:var(--red2)}
+.dflt{display:grid;place-items:center;text-align:center;background:radial-gradient(ellipse at 50% 0,rgba(124,58,237,.35),transparent 70%),var(--card)}.dflt h2{font-size:clamp(20px,5vw,40px)}
+textarea{width:100%;min-height:90px;background:#0d0d10;border:1px solid var(--line);color:#fff;border-radius:8px;padding:10px 12px;font:600 17px Rajdhani,sans-serif;margin-bottom:10px;resize:vertical}
+td input{margin:0;min-width:120px}.lgi{height:30px;vertical-align:middle;margin-right:6px}input[type=color]{height:44px;padding:4px;margin-top:4px}
+.btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:8px;padding:11px 24px;font:700 17px Rajdhani,sans-serif;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:.2s}
+.btn:hover:not(:disabled){background:var(--red2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,.35)}
+.btn:disabled{opacity:.4;cursor:not-allowed}.btn.g{background:#2a2a32}.btn.s{padding:5px 12px;font-size:14px}
+main>*{animation:up .5s both}
+.hero{text-align:center;padding:84px 0 70px;background:radial-gradient(ellipse at 50% 0,rgba(124,58,237,.3),transparent 65%),repeating-linear-gradient(115deg,transparent 0 40px,rgba(255,255,255,.02) 40px 41px)}
+.tag{display:inline-block;border:1px solid var(--red);color:var(--red2);padding:2px 14px;border-radius:99px;font-weight:700;letter-spacing:2px;font-size:14px;animation:pulse 2.4s infinite}
+.hero h1{font-size:clamp(30px,7vw,60px);font-weight:900;margin:18px 0 10px;line-height:1.15}
+.hero h1 span{color:var(--red2);text-shadow:0 0 30px rgba(255,59,77,.5)}
+.hero p{color:var(--mut);font-size:21px;margin:0 0 26px}
+.strip{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:30px}
+section{padding:56px 0}section.alt{background:var(--bg2)}
+.title{text-align:center;margin-bottom:30px}.title h2{font-size:clamp(22px,5vw,32px)}.title h2 span{color:var(--red2)}
+.title div{width:60px;height:3px;background:var(--red);margin:12px auto 0;border-radius:3px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.tiles{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.stats{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));margin-top:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;transition:.25s}
+.card:hover{border-color:var(--red)}
+.card h3{font-size:16px;margin:10px 0 12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;color:#fff;cursor:pointer;font:700 20px Rajdhani,sans-serif;transition:.2s}
+.tile span{display:block;color:var(--mut);font-size:14px}.tile:hover,.tile.on{border-color:var(--red);background:rgba(124,58,237,.12)}
+.bd{display:inline-block;font-size:13px;font-weight:700;padding:1px 10px;border-radius:99px;background:rgba(124,58,237,.15);color:var(--red2);margin-right:6px}
+.bd.ok{background:rgba(34,197,94,.15);color:#4ade80}.bd.no{background:#3a1015;color:#fca5a5}
+.row{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:6px 0;color:var(--mut)}.row b{color:#fff;text-align:right}
+.bar{height:6px;background:#26262e;border-radius:9px;margin:10px 0 14px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--red2))}
+.card>.btn{width:100%}.step{text-align:center}
+.step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:44px;height:44px;margin:0 auto 10px;border-radius:50%;background:var(--red);font:900 18px Orbitron,sans-serif}
+.steps{counter-reset:s}.mu{color:var(--mut);font-size:16px}.empty{grid-column:1/-1;text-align:center;color:var(--mut)}
+.st span{color:var(--mut)}.st b{display:block;font:900 24px Orbitron,sans-serif;color:var(--red2)}.big{font:900 30px Orbitron,sans-serif}
+.win{display:flex;align-items:center;gap:14px}.win .m{font-size:28px}.win small{display:block;color:var(--mut)}
+footer{border-top:1px solid var(--line);padding:24px 0;text-align:center;color:var(--mut);font-size:16px}
+footer a{margin:0 8px;cursor:pointer}footer a:hover,.lk:hover{color:#fff}.lk{cursor:pointer;text-decoration:underline}
+input,select{width:100%;background:#0d0d10;border:1px solid var(--line);color:#fff;border-radius:8px;padding:10px 12px;font:600 17px Rajdhani,sans-serif;margin-bottom:10px}
+input:focus,select:focus{outline:0;border-color:var(--red)}input[type=checkbox]{width:auto;margin-right:6px}.ck{display:block;margin-bottom:12px;color:var(--mut)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}.modal.on{display:flex}
+.box{background:var(--card);border:1px solid var(--red);border-radius:14px;padding:22px;width:100%;max-width:440px;max-height:90vh;overflow:auto;animation:pop .25s}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--red);padding:10px 22px;border-radius:99px;font-weight:700;opacity:0;transition:.3s;z-index:60;pointer-events:none;text-align:center;max-width:92vw}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.tabs button{background:var(--card);color:var(--mut);border:1px solid var(--line);border-radius:8px;padding:7px 14px;font:700 16px Rajdhani,sans-serif;cursor:pointer}
+.tabs button.on{background:var(--red);color:#fff;border-color:var(--red)}
+.tw{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-size:16px}th{color:var(--mut);background:var(--card)}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}@keyframes pulse{50%{box-shadow:0 0 18px rgba(124,58,237,.5)}}@keyframes pop{from{transform:scale(.93);opacity:0}}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.hbs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:18px 0 34px}@media(min-width:760px){.hbs{grid-template-columns:repeat(3,1fr)}}
+.hbn{background:linear-gradient(160deg,var(--card),#0b0b24);border:1px solid var(--line);border-radius:16px;padding:24px 10px 20px;color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px;transition:.25s}
+.hbn:hover{border-color:var(--red2);transform:translateY(-4px);box-shadow:0 0 26px rgba(34,211,238,.25)}
+.hbn .ico{display:grid;place-items:center;width:78px;height:78px;border-radius:50%;color:var(--c,#22d3ee);border:2px solid var(--c,#22d3ee);background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.08),rgba(0,0,0,.35));box-shadow:0 0 22px -2px var(--c,#22d3ee),inset 0 0 14px -4px var(--c,#22d3ee);transition:.25s}.hbn:hover .ico{transform:scale(1.08)}.hbn .ico svg{width:46px;height:46px;filter:drop-shadow(0 0 5px var(--c,#22d3ee))}
+.hbn b{font:700 16px Orbitron,sans-serif;text-align:center;line-height:1.35}
+.hbn.pic{padding:0;min-height:170px;justify-content:flex-end;background-size:cover;background-position:center}.hbn.pic b{padding:0 10px 14px;text-shadow:0 2px 8px #000}
+</style></head><body>
+<header id="hd"></header><main id="app"></main><footer id="ft"></footer><nav class="bn" id="bn"></nav><div class="sup" id="sp"></div>
+<div class="modal" id="mo"><div class="box" id="mb"></div></div><div id="toast"></div>
+<script>
+var SITE="admin";
+var FB={apiKey:"",authDomain:"",projectId:"",appId:""},CM=!!FB.apiKey,CLOUD=0,FA=null,IM={};
+var $=i=>document.getElementById(i),K="sitbd2",S,V={tab:"ov",at:"ov",f:"All"},cur,MS,tt,
+M=["Solo","Duo","Squad","Clash Squad"],NM={Solo:0,Duo:1,Squad:3,"Clash Squad":3},HB=[["Solo Match","\ud83d\udc64"],["Duo Match","\ud83d\udc65"],["Bermuda Match","\ud83c\udfdd\ufe0f"],["Classic Squad","\ud83d\udee1\ufe0f"],["Lone Wolf Match","\ud83d\udc3a"],["Zone Push Match","\ud83c\udfaf"]],EM={Solo:"👤",Duo:"👥",Bermuda:"🏝️","Classic Squad":"🛡️","Lone Wolf":"🐺","Zone Push":"🎯"},lb=m=>m=="Classic Squad"?m:m+" Match",ST=["Upcoming","Registration Open","Registration Closed","Live","Completed"],PH=/^01[3-9]\d{8}$/,UD=/^\d{6,14}$/;
+var e=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+var v=i=>$(i).value.trim(),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7),ref=()=>"SI"+uid().toUpperCase(),mny=n=>"৳"+(+n||0).toLocaleString(),
+fd=t=>{var d=new Date(t);return isNaN(d)?"TBA":d.toLocaleString([],{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})},
+H=s=>crypto.subtle.digest("SHA-256",new TextEncoder().encode("sitbd:"+s)).then(b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""));
+function mk(n,m,f,p,s,d){return{id:uid(),n:n,m:m,f:f,p:p,s:s,d:d,st:"Registration Open",r:"No cheating or hacks. Use your registered UID. Be on time. Admin decision is final.",rm:null}}
+function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(x){}
+if(!S)S={users:[],led:[],dep:[],wd:[],reg:[],res:[],nt:[],au:[],cfg:{nm:"SI TOURNAMENT BD",bk:"01789356184",ng:"01789356184",md:10,mw:20,fb:"https://facebook.com",ct:"support@sitournamentbd.com",wa:"https://wa.me/8801789356184",tg:"https://t.me/+8801789356184"},
+T:[mk("Solo Showdown #1","Solo",20,600,48,"2026-11-08T19:30"),mk("Duo Clash #1","Duo",40,1200,24,"2026-11-09T20:00"),mk("Squad War #1","Squad",80,3000,12,"2026-11-10T21:00"),mk("Clash Squad Cup #1","Clash Squad",60,2000,16,"2026-11-11T20:30")]};var c=S.cfg;if(c.bk=="01XXXXXXXXX")c.bk="01789356184";if(c.ng=="01XXXXXXXXX")c.ng="01789356184";if(c.md==50)c.md=10;if(c.mw==100)c.mw=20;if(!c.wa)c.wa="https://wa.me/8801789356184";if(!c.tg)c.tg="https://t.me/+8801789356184";if(!S.bn)S.bn=[];if(!S.ann)S.ann=[];if(!S.hb)S.hb=HB.map(h=>({n:h[0],i:h[1],l:"",m:"Match details will be announced soon."}));if(!S.tx)S.tx={about:IN.about[1],privacy:IN.privacy[1],terms:IN.terms[1]};if(!S.modes)S.modes=[["Solo",0],["Duo",1],["Squad",3],["Clash Squad",3]];S.hb.forEach(h=>{if(!h.k)h.k=uid()});modes();S.T.forEach(t=>{if(t.m=="Classic Squad")t.m="Squad"});if(S.m2){S.m2=0;var X=["Bermuda","Lone Wolf","Zone Push"];S.T.filter(t=>X.includes(t.m)).forEach(t=>{S.reg.filter(r=>r.t==t.id).forEach(r=>post(r.u,"entry_refund",t.f,"Refund: "+t.n));S.reg=S.reg.filter(r=>r.t!=t.id)});S.T=S.T.filter(t=>!X.includes(t.m));save()}}
+function save(){try{localStorage.setItem(K,JSON.stringify(S));return 1}catch(x){return 0}}
+function U(){var i=MS;try{i=i||sessionStorage.getItem(K+"s")||localStorage.getItem(K+"s")}catch(x){}return S.users.find(u=>u.id==i&&!u.bl)}
+function setS(i,rem){MS=i;try{if(i)(rem?localStorage:sessionStorage).setItem(K+"s",i);else{localStorage.removeItem(K+"s");sessionStorage.removeItem(K+"s")}}catch(x){}}
+var bal=u=>S.led.filter(x=>x.u==u).reduce((a,x)=>a+x.a,0),
+post=(u,t,a,n)=>{if(bal(u)+a<0)return 0;S.led.push({id:uid(),u:u,t:t,a:a,n:n,ts:Date.now(),ref:ref()});return 1},
+note=(u,m)=>S.nt.unshift({u:u,m:m,ts:Date.now()}),log=a=>S.au.unshift({by:U().un,a:a,ts:Date.now()}),
+fl=t=>S.reg.filter(r=>r.t==t.id).length,TN=i=>S.T.find(t=>t.id==i)||{n:"(deleted)"},NU=i=>(S.users.find(u=>u.id==i)||{un:"?"}).un,
+sum=(a,f)=>a.reduce((x,y)=>x+f(y),0),
+toast=m=>{var t=$("toast");t.textContent=m;t.className="on";clearTimeout(tt);tt=setTimeout(()=>t.className="",2600)},
+openM=h=>{$("mb").innerHTML=h;$("mo").classList.add("on")},closeM=()=>$("mo").classList.remove("on"),
+rw=(l,x,c)=>'<div class="row"><span>'+l+'</span><b class="'+(c||"")+'">'+e(x)+'</b></div>',
+ttl=(a,b)=>'<div class="title"><h2>'+a+' <span>'+b+'</span></h2><div></div></div>',
+sb=s=>'<span class="bd '+({Approved:"ok",Completed:"ok",Rejected:"no"}[s]||"")+'">'+s+'</span>',
+tbl=(h,r)=>'<div class="tw"><table><thead><tr>'+h.map(x=>"<th>"+x+"</th>").join("")+'</tr></thead><tbody>'+(r.length?r.map(c=>"<tr>"+c.map(x=>"<td>"+x+"</td>").join("")+"</tr>").join(""):'<tr><td colspan="'+h.length+'">Nothing here yet</td></tr>')+'</tbody></table></div>',
+tabs=(m,c,a)=>'<div class="tabs">'+Object.keys(m).map(k=>'<button class="'+(k==c?"on":"")+'" data-a="'+a+'" data-i="'+k+'">'+m[k]+'</button>').join("")+'<button data-a="lo">Logout</button></div>',
+sg=a=>'<div class="grid stats">'+a.map(s=>'<div class="card st"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>').join("")+'</div>',
+btn=(a,i,l)=>'<button class="btn s g" data-a="'+a+'" data-i="'+i+'">'+l+'</button> ';
+var IN={about:["About Us","SI TOURNAMENT BD organizes Free Fire tournaments in Bangladesh with fair play, transparent results and fast rewards."],
+privacy:["Privacy Policy","We collect only the details needed to run your account and tournaments, and we never sell your personal data."],
+terms:["Terms and Conditions","Players must be 18+ or have guardian consent. Cheating, hacking or multiple accounts lead to a permanent ban. Entry fees are not refundable once a match starts. Admin decisions are final."]};
+
+function card(t){var f=fl(t),o=t.st=="Registration Open"&&f<t.s;
+return '<div class="card"><span class="bd">'+e(t.m)+'</span><span class="bd '+(o?"ok":"")+'">'+(t.st=="Registration Open"&&!o?"Full":e(t.st))+'</span><h3>'+e(t.n)+'</h3>'+rw("Match",fd(t.d))+rw("Entry Fee",mny(t.f))+rw("Prize Pool",mny(t.p),"pz")+rw("Total Slots",t.s)+rw("Registered",f)+rw("Available",Math.max(0,t.s-f))+'<div class="bar"><i style="width:'+Math.min(100,f/t.s*100)+'%"></i></div><button class="btn" data-a="join" data-i="'+t.id+'"'+(o?"":" disabled")+'>'+(o?"Register Now":"Unavailable")+'</button></div>'}
+function home(){var b=S.bn||[],ok=x=>/^https?:\/\//.test(x||"");
+return '<section class="bsec"><div class="wrap">'+(b.length?'<div class="bnr" id="bnr">'+b.map((x,i)=>(ok(x.link)?'<a class="sl'+(i?"":" on")+'" href="'+e(x.link)+'" target="_blank" rel="noopener">':'<div class="sl'+(i?"":" on")+'">')+'<img src="'+x.img+'" alt="">'+(ok(x.link)?'</a>':'</div>')).join("")+(b.length>1?'<div class="dots">'+b.map((x,i)=>'<i data-a="sd" data-i="'+i+'" class="'+(i?"":"on")+'"></i>').join("")+'</div>':"")+'</div>':'<div class="bnr dflt"><div><span class="tag">FREE FIRE ESPORTS</span><h2 style="margin-top:10px">'+e(S.cfg.nm)+'</h2></div></div>')+'</div></section>'+(U()?'<section style="padding:10px 0 30px"><div class="wrap"><div class="grid tiles">'+S.hb.map((h,i)=>'<button class="tile" data-a="hb" data-i="'+i+'">'+e(h.i)+' '+e(h.n)+'</button>').join("")+'</div></div></section>':"")}
+function tpage(){return '<div class="wrap" style="padding:28px 18px"><div class="grid">'+(S.T.map(card).join("")||'<p class="empty">No matches yet.</p>')+'</div></div>'}
+function oldhome(){var l=S.T.filter(t=>V.f=="All"||t.m==V.f);
+return '<section class="hero" id="hero"><div class="wrap"><span class="tag">FREE FIRE ESPORTS</span><h1>Welcome to <span>'+e(S.cfg.nm)+'</span></h1><p>Join Tournaments and Win Exciting Rewards.</p><a href="#tournaments" class="btn">Join Tournament</a><div class="strip">'+M.map(m=>'<span class="bd">'+m+'</span>').join("")+'</div></div></section>'
++(U()?'<section class="alt" id="matches6"><div class="wrap">'+ttl("Choose Your","Match")+'<div class="grid tiles">'+HB.map((b,i)=>'<button class="tile" data-a="hb" data-i="'+i+'">'+b[1]+' '+b[0]+'</button>').join("")+'</div></div></section>':"")+'<section id="tournaments"><div class="wrap">'+ttl("Available","Tournaments")+'<div class="grid tiles">'+M.map(m=>'<button class="tile'+(V.f==m?" on":"")+'" data-a="flt" data-i="'+m+'">'+m+'<span>'+S.T.filter(t=>t.m==m).length+' tournaments</span></button>').join("")+'</div><div class="grid" style="margin-top:20px">'+(l.map(card).join("")||'<p class="empty">No tournaments here yet.</p>')+'</div></div></section>'
++'<section class="alt" id="how"><div class="wrap">'+ttl("How to","Play")+'<div class="grid steps">'+[["Create an Account","Register with your email and phone."],["Deposit Money","Add balance via bKash or Nagad."],["Join a Tournament","Pick a match and confirm your entry."],["Play and Win Rewards","Get the room details and win prizes."]].map(s=>'<div class="card step"><h3>'+s[0]+'</h3><p class="mu">'+s[1]+'</p></div>').join("")+'</div></div></section>'
++'<section id="results"><div class="wrap">'+ttl("Recent","Winners")+'<div class="grid">'+(S.res.slice(0,6).map(r=>'<div class="card win"><span class="m">🏆</span><div><b>'+e(r.un)+'</b><small>'+e(TN(r.t).n)+' · #'+r.pos+' · '+mny(r.p)+'</small></div></div>').join("")||'<p class="empty">Winners will be announced here.</p>')+'</div></div></section>'}
+function hdr(u,ac){var n=S.cfg.nm.split(" ").map((w,i)=>i==1?"<b>"+e(w)+"</b>":e(w)).join(" ");
+$("hd").innerHTML='<div class="wrap nav"><a href="#home" class="logo">'+(S.cfg.lg?'<img class="lgi" src="'+S.cfg.lg+'" alt="">':"")+n+'</a>'+(u?'<a href="#deposit" class="pill">'+mny(bal(u.id))+' +</a>':'<a href="#login" class="pill">Login</a>')+'</div>';
+var k=ac=="tournaments"||ac=="matches"?ac:["profile","dash","login","register","deposit","withdraw","admin"].includes(ac)?"profile":"home",
+IC={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',tournaments:'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',matches:'<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5M16 11.5h.01M18.5 13.5h.01"/>',profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'},
+LB={home:"Home",tournaments:"Tournaments",matches:"Matches",profile:"Profile"},ok=x=>/^https?:\/\//.test(x||"");
+$("bn").innerHTML=Object.keys(IC).map(x=>'<a data-a="go" data-i="'+x+'" class="'+(x==k?"on":"")+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+IC[x]+'</svg>'+LB[x]+'</a>').join("");
+$("sp").innerHTML=(ok(S.cfg.wa)?'<a class="wa" href="'+e(S.cfg.wa)+'" target="_blank" rel="noopener" aria-label="WhatsApp support"><svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>':"")+(ok(S.cfg.tg)?'<a class="tg" href="'+e(S.cfg.tg)+'" target="_blank" rel="noopener" aria-label="Telegram support"><svg viewBox="0 0 24 24" fill="#fff"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>':"");
+$("ft").innerHTML='<div class="wrap"><a data-a="info" data-i="about">About Us</a><a data-a="info" data-i="contact">Contact Us</a><a data-a="info" data-i="privacy">Privacy Policy</a><a data-a="info" data-i="terms">Terms and Conditions</a><a href="'+e(S.cfg.fb)+'" target="_blank" rel="noopener">Facebook Page</a><p>© 2026 '+e(S.cfg.nm)+'</p></div>'}
+function login(){return '<div class="wrap" style="max-width:420px;padding:50px 18px"><div class="card"><h3>Login</h3><br><input id="li" placeholder="Mobile number" autocomplete="username"><input id="lp" type="password" placeholder="Password" autocomplete="current-password"><label class="ck"><input type="checkbox" id="lr">Remember me</label><button class="btn" style="width:100%" data-a="lg">Login</button><p class="mu"><a class="lk" data-a="fp">Forgot password?</a> · <a class="lk" href="#register">Create account</a></p></div></div>'}
+function regp(){return '<div class="wrap" style="max-width:460px;padding:50px 18px"><div class="card"><h3>Create Account</h3><br><input id="rn" placeholder="Full name"><input id="ru" placeholder="Username"><input id="rp" placeholder="Phone number (01XXXXXXXXX)" inputmode="tel"><input id="rw" type="password" placeholder="Password (8+ chars, letters &amp; numbers)"><input id="rc" type="password" placeholder="Confirm password"><button class="btn" style="width:100%" data-a="rg">Register</button><p class="mu">Already have an account? <a class="lk" href="#login">Login</a></p></div></div>'}
+var DP={
+ov:(u,b)=>{var rg=S.reg.filter(r=>r.u==u.id);return sg([["Available Balance",mny(b)],["Total Deposits",mny(sum(S.led.filter(x=>x.u==u.id&&x.t=="deposit"),x=>x.a))],["Total Withdrawals",mny(sum(S.wd.filter(x=>x.u==u.id&&x.st=="Completed"),x=>x.amt))],["Tournaments Joined",rg.length],["Matches Played",rg.filter(r=>TN(r.t).st=="Completed").length],["Total Wins",S.res.filter(r=>r.u==u.id&&r.pos==1).length]])},
+pf:u=>'<div class="card" style="max-width:480px;margin-top:10px">'+rw("Full Name",u.name)+rw("Username",u.un)+rw("Email",u.em)+rw("Phone",u.ph)+rw("Status",u.ver?"Verified":"Not verified yet")+rw("Joined",fd(u.ts))+'</div>',
+mt:u=>'<div class="grid" style="margin-top:10px">'+(S.reg.filter(r=>r.u==u.id).map(r=>{var t=S.T.find(x=>x.id==r.t);if(!t)return"";var o=t.rm&&t.rm.pub&&(r.st||"Approved")=="Approved"&&Date.now()>=new Date(t.rm.rel).getTime();return '<div class="card"><span class="bd">'+e(t.m)+'</span><span class="bd ok">'+e(t.st)+'</span><h3>'+e(t.n)+'</h3>'+rw("Registration ID",r.rid)+rw("Status",r.st||"Approved")+rw("Match",fd(t.d))+rw("In-game Name",r.ign)+(o?rw("Room ID",t.rm.id,"pz")+rw("Room Password",t.rm.pw,"pz"):'<p class="mu">'+(t.rm&&t.rm.pub?"Room details appear at "+fd(t.rm.rel):"Room details not published yet")+'</p>')+'</div>'}).join("")||'<p class="empty">You have not joined any tournament yet.</p>')+'</div>',
+dp:(u,b)=>'<div class="two"><div class="card"><h3>New Deposit</h3><br><input id="da" type="number" placeholder="Amount (min '+S.cfg.md+')"><select id="dm"><option>bKash</option><option>Nagad</option></select><p class="mu">Send money to<br>bKash: <b class="pz">'+e(S.cfg.bk)+'</b><br>Nagad: <b class="pz">'+e(S.cfg.ng)+'</b><br>'+e(S.cfg.pi||"Use “Send Money”, then enter the Transaction ID below. Your wallet is credited only after an admin verifies the payment.")+'</p><input id="dt" placeholder="Transaction ID"><input id="dh" placeholder="Sender phone number" inputmode="tel"><button class="btn" data-a="dsub">Submit Deposit Request</button></div><div class="card"><h3>Balance</h3><p class="big pz">'+mny(b)+'</p></div></div>'+tbl(["Reference","Amount","Method","TrxID","Status","Date"],S.dep.filter(x=>x.u==u.id).map(x=>[x.ref,mny(x.amt),x.m,e(x.tx),sb(x.st),fd(x.ts)])),
+wd:(u,b)=>'<div class="two"><div class="card"><h3>Withdraw</h3><br><p class="mu">Available: <b class="pz">'+mny(b)+'</b> · Minimum: '+mny(S.cfg.mw)+(u.ver?"":" · <b>Your account is not verified yet.</b>")+'</p><input id="wa" type="number" placeholder="Amount"><select id="wm"><option>bKash</option><option>Nagad</option></select><input id="wc" placeholder="Account number" inputmode="tel"><input id="wc2" placeholder="Confirm account number" inputmode="tel"><button class="btn" data-a="wsub">Submit Request</button></div></div>'+tbl(["Reference","Amount","Method","Account","Status","Date"],S.wd.filter(x=>x.u==u.id).map(x=>[x.ref,mny(x.amt),x.m,e(x.acc),sb(x.st),fd(x.ts)])),
+tx:u=>tbl(["Reference","Type","Amount","Note","Date"],S.led.filter(x=>x.u==u.id).slice().reverse().map(x=>[x.ref,e(x.t),(x.a>0?"+":"")+mny(x.a),e(x.n),fd(x.ts)])),
+nt:u=>'<div class="grid" style="margin-top:10px">'+(S.nt.filter(x=>x.u==u.id).map(x=>'<div class="card"><b>'+e(x.m)+'</b><p class="mu">'+fd(x.ts)+'</p></div>').join("")||'<p class="empty">No notifications.</p>')+'</div>'};
+function dash(u){var T={ov:"Overview",mt:"My Tournaments",tx:"My Wallet",dp:"Deposit",wd:"Withdraw",mh:"Match History",pf:"Profile Settings",nt:"Notifications"};
+return '<div class="wrap" style="padding:28px 18px"><h2 class="logo">Welcome, <b>'+e(u.name)+'</b></h2>'+(u.role=="admin"?'<p><a href="#admin" class="btn s">Open Admin Panel</a></p>':"")+tabs(T,V.tab,"tab")+(DP[V.tab]||DP.ov)(u,bal(u.id))+'</div>'}
+var AD={
+ov:()=>sg([["Total Users",S.users.filter(u=>u.role!="admin").length],["Total Deposits",mny(sum(S.dep.filter(x=>x.st=="Approved"),x=>x.amt))],["Total Withdrawals",mny(sum(S.wd.filter(x=>x.st=="Completed"),x=>x.amt))],["Total Revenue",mny(-sum(S.led.filter(x=>x.t=="entry"||x.t=="entry_refund"),x=>x.a)-sum(S.led.filter(x=>x.t=="prize"),x=>x.a))],["Total Tournaments",S.T.length],["Total Registrations",S.reg.length]]),
+us:()=>'<input id="q" placeholder="Search users…" style="margin-top:14px">'+tbl(["Name","Username","Email","Phone","Balance","Status","Actions"],S.users.map(x=>[e(x.name),e(x.un),e(x.em),e(x.ph),mny(bal(x.id)),x.bl?'<span class="bd no">Blocked</span>':x.ver?'<span class="bd ok">Verified</span>':'<span class="bd">Unverified</span>',x.role=="admin"?"—":btn("ub",x.id,x.bl?"Unblock":"Block")+btn("uv",x.id,x.ver?"Unverify":"Verify")+btn("uw",x.id,"Wallet")+btn("ue",x.id,"Edit")])),
+dp:()=>'<p class="mu" style="margin-top:12px">Check each TrxID in your bKash/Nagad merchant app before approving.</p>'+tbl(["Ref","User","Amount","Method","TrxID","Sender","Status","Action"],S.dep.map(x=>[x.ref,e(NU(x.u)),mny(x.amt),x.m,e(x.tx),e(x.ph),sb(x.st),x.st=="Pending"?btn("dap",x.id,"Approve")+btn("drj",x.id,"Reject"):"—"])),
+wd:()=>tbl(["Ref","User","Amount","Method","Account","Status","Action"],S.wd.map(x=>[x.ref,e(NU(x.u)),mny(x.amt),x.m,e(x.acc),sb(x.st),x.st=="Pending"?btn("wpr",x.id,"Process")+btn("wrj",x.id,"Reject"):x.st=="Processing"?btn("wcp",x.id,"Payout Sent ✓")+btn("wrj",x.id,"Reject"):"—"])),
+tr:()=>'<button class="btn s" style="margin-top:14px" data-a="tn">+ New Tournament</button>'+tbl(["Name","Mode","Fee","Prize","Slots","Status","Actions"],S.T.map(t=>[e(t.n),t.m,mny(t.f),mny(t.p),fl(t)+"/"+t.s,e(t.st),btn("te",t.id,"Edit")+btn("tr",t.id,"Room")+btn("td",t.id,"Delete")])),
+rs:()=>'<div class="card" style="margin-top:14px;max-width:520px"><h3>Publish Result</h3><br><select id="xt">'+S.T.map(t=>'<option value="'+t.id+'">'+e(t.n)+'</option>').join("")+'</select><input id="xw" placeholder="Winner username"><div class="two"><input id="xr" type="number" placeholder="Position (1,2,3…)"><input id="xp" type="number" placeholder="Prize (৳)"></div><button class="btn" data-a="rsub">Publish &amp; Pay Prize</button></div>'+tbl(["Tournament","Position","Winner","Prize","Date"],S.res.map(r=>[e(TN(r.t).n),"#"+r.pos,e(r.un),mny(r.p),fd(r.ts)])),
+st:()=>{var c=S.cfg;return '<div class="card" style="margin-top:14px;max-width:520px"><h3>Website Settings</h3><br><input id="cn" placeholder="Website name" value="'+e(c.nm)+'"><div class="two"><input id="cb" placeholder="bKash number" value="'+e(c.bk)+'"><input id="cg" placeholder="Nagad number" value="'+e(c.ng)+'"></div><div class="two"><input id="cd" type="number" placeholder="Min deposit" value="'+e(c.md)+'"><input id="cw" type="number" placeholder="Min withdrawal" value="'+e(c.mw)+'"></div><input id="cf" placeholder="Facebook page URL" value="'+e(c.fb)+'"><input id="cwa" placeholder="WhatsApp link (https://wa.me/8801XXXXXXXXX)" value="'+e(c.wa)+'"><input id="ctg" placeholder="Telegram link (https://t.me/username)" value="'+e(c.tg)+'"><input id="cc" placeholder="Contact email / phone" value="'+e(c.ct)+'"><p class="mu">Deposit instructions shown to users</p><textarea id="cpi">'+e(c.pi)+'</textarea><button class="btn" data-a="cs">Save Settings</button></div>'},
+au:()=>tbl(["Admin","Action","Date"],S.au.map(x=>[e(x.by),e(x.a),fd(x.ts)])),
+bn:()=>'<div class="card" style="margin-top:14px;max-width:520px"><h3>Add Banner</h3><br><input id="bf" type="file" accept="image/*"><input id="bl" placeholder="Link when tapped (optional, https://…)"><p class="mu">Best size: 1280×720 (YouTube thumbnail size, 16:9). They are compressed automatically and shown as a sliding banner on the homepage.</p><button class="btn" data-a="ba">Add Banner</button></div>'+tbl(["Preview","Link","Action"],S.bn.map(b=>['<img src="'+b.img+'" alt="" style="width:120px;border-radius:6px;display:block">',e(b.link||"—"),btn("bd",b.id,"Delete")])),
+si:()=>{var c=S.cfg,t=S.tx,cd=(h,b)=>'<div class="card" style="margin-top:14px"><h3>'+h+'</h3><br>'+b+'</div>';
+return cd("Branding &amp; Theme",'<p class="mu">Logo shown in the header'+(c.lg?' · <a class="lk" data-a="lrm">Remove logo</a>':'')+'</p><input id="lf" type="file" accept="image/*"><div class="two"><label class="mu">Main color<input id="c1" type="color" value="'+e(c.c1||"#7c3aed")+'"></label><label class="mu">Accent color<input id="c2" type="color" value="'+e(c.c2||"#22d3ee")+'"></label></div><button class="btn" data-a="bsv">Save Branding</button>')
++cd("Home Buttons",'<p class="mu">Link can be https://… or a page like #tournaments, #matches, #profile, #deposit. Leave the link empty to open the button’s own page (fill it with Edit Page). Save before adding or deleting.</p>'+tbl(["Icon","Name","Link (optional)",""],S.hb.map((h,i)=>['<input class="hi" value="'+e(h.i)+'" style="width:70px">','<input class="hn" value="'+e(h.n)+'">','<input class="hl" value="'+e(h.l)+'">',btn("hup",i,"↑")+btn("hdn",i,"↓")+btn("hpe",i,"Edit Page")+btn("hx",i,"Delete")]))+'<br><button class="btn" data-a="hs">Save Buttons</button> <button class="btn g" data-a="ha">+ Add Button</button>')
++cd("Game Modes (Tournaments)",'<p class="mu">Modes used when creating tournaments, and how many teammate UIDs players must enter. Save before adding or deleting.</p>'+tbl(["Mode name","Teammates needed",""],S.modes.map((m,i)=>['<input class="mn" value="'+e(m[0])+'">','<input class="mc" type="number" min="0" max="5" value="'+m[1]+'" style="width:90px">',btn("mx",i,"Delete")]))+'<br><button class="btn" data-a="cm">Save Modes</button> <button class="btn g" data-a="ma">+ Add Mode</button>')
++cd("Page Texts",'<p class="mu">About Us</p><textarea id="x_ab">'+e(t.about)+'</textarea><p class="mu">Privacy Policy</p><textarea id="x_pv">'+e(t.privacy)+'</textarea><p class="mu">Terms and Conditions</p><textarea id="x_tm">'+e(t.terms)+'</textarea><p class="mu">Rules &amp; Regulations</p><textarea id="x_rl">'+e(t.rules)+'</textarea><button class="btn" data-a="tv">Save Texts</button>')
++cd("Admin Password",'<input id="ap0" type="password" placeholder="Current password"><input id="ap1" type="password" placeholder="New password"><input id="ap2" type="password" placeholder="Confirm new password"><button class="btn" data-a="apw">Change Password</button>')}};
+function admin(){var T={ov:"Overview",us:"Users",dp:"Deposits",wd:"Withdrawals",tr:"Tournaments",rg:"Entries",an:"Announcements",rp:"Reports",bn:"Banners",si:"Site Editor",rs:"Results",st:"Settings",au:"Audit Log"};
+return '<div class="wrap" style="padding:28px 18px"><h2 class="logo">ADMIN <b>PANEL</b></h2>'+tabs(T,V.at,"atab")+AD[V.at]()+'</div>'}
+function tform(t){t=t||{};return '<h3>'+(t.id?"Edit":"New")+' Tournament</h3><br><input id="tn" placeholder="Tournament name" value="'+e(t.n)+'"><div class="two"><select id="tm">'+M.map(m=>'<option'+(t.m==m?" selected":"")+'>'+m+'</option>').join("")+'</select><input id="tdt" type="datetime-local" value="'+e(t.d)+'"></div><div class="two"><input id="tf" type="number" placeholder="Entry fee" value="'+e(t.f)+'"><input id="tp" type="number" placeholder="Prize pool" value="'+e(t.p)+'"></div><div class="two"><input id="tsl" type="number" placeholder="Total slots" value="'+e(t.s)+'"><select id="tst">'+ST.map(m=>'<option'+((t.st||"Upcoming")==m?" selected":"")+'>'+m+'</option>').join("")+'</select></div><input id="trl" placeholder="Rules" value="'+e(t.r)+'"><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="ts" data-i="'+(t.id||"")+'">Save</button></div>'}
+function jform(t){var u=U(),x=NM[t.m]>0;return '<h3>Join: '+e(t.n)+'</h3><p class="mu">Entry fee <b class="pz">'+mny(t.f)+'</b> · Your balance <b>'+mny(bal(u.id))+'</b></p><p class="mu">'+e(t.r)+'</p><input id="jp" placeholder="Player name" value="'+e(u.name)+'"><input id="ju" placeholder="Free Fire UID" inputmode="numeric"><input id="jg" placeholder="In-game name"><input id="jh" placeholder="Phone number" value="'+e(u.ph)+'">'+(x?'<input id="jt" placeholder="Team name"><input id="jm" placeholder="Teammate UIDs ('+NM[t.m]+', comma separated)">':"")+'<div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="jsub" data-i="'+t.id+'">Confirm &amp; Pay</button></div>'}
+function rform(t){var r=t.rm||{};return '<h3>Room: '+e(t.n)+'</h3><br><input id="ri" placeholder="Room ID" value="'+e(r.id)+'"><input id="rpw" placeholder="Room password" value="'+e(r.pw)+'"><p class="mu">Release time (players see details only after this)</p><input id="rl" type="datetime-local" value="'+e(r.rel)+'"><label class="ck"><input type="checkbox" id="rb"'+(r.pub?" checked":"")+'>Publish room information</label><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="trs" data-i="'+t.id+'">Save</button></div>'}
+
+async function doLogin(){var i=v("li").toLowerCase(),u=S.users.find(x=>x.em==i||x.ph==i);
+if(!u||u.pw!=await H(u.em+"|"+$("lp").value))return toast("Invalid email/phone or password");
+if(u.bl)return toast("This account is blocked");
+V.f="All";setS(u.id,$("lr").checked);location.hash=u.role=="admin"?"admin":"dash";route()}
+async function doReg(){var n=v("rn"),us=v("ru").toLowerCase(),em=v("re").toLowerCase(),ph=v("rp"),p=$("rw").value;
+if(n.length<3)return toast("Enter your full name");
+if(!/^[a-z0-9_]{3,20}$/.test(us))return toast("Username: 3-20 letters, numbers or _");
+if(!/^\S+@\S+\.\S+$/.test(em))return toast("Enter a valid email");
+if(!PH.test(ph))return toast("Enter a valid BD phone number");
+if(p.length<8||!/[a-z]/i.test(p)||!/\d/.test(p))return toast("Password needs 8+ characters with letters and numbers");
+if(p!=$("rc").value)return toast("Passwords do not match");
+if(S.users.some(x=>x.un==us||x.em==em||x.ph==ph))return toast("Username, email or phone is already registered");
+var u={id:uid(),name:n,un:us,em:em,ph:ph,pw:await H(em+"|"+p),role:"user",ver:0,bl:0,ts:Date.now()};
+S.users.push(u);note(u.id,"Welcome to "+S.cfg.nm+"!");save();setS(u.id,1);location.hash="dash";route()}
+function dSub(u){var a=+v("da"),m=v("dm"),t=v("dt"),h=v("dh");
+if(!(a>=S.cfg.md&&Number.isInteger(a)))return toast("Minimum deposit is "+mny(S.cfg.md));
+if(!/^[A-Za-z0-9]{6,20}$/.test(t))return toast("Enter a valid Transaction ID");
+if(!PH.test(h))return toast("Enter a valid sender number");
+if(S.dep.some(x=>x.m==m&&x.tx.toUpperCase()==t.toUpperCase()))return toast("This Transaction ID was already submitted");
+S.dep.unshift({id:uid(),ref:ref(),u:u.id,amt:a,m:m,tx:t,ph:h,st:"Pending",ts:Date.now()});save();toast("Deposit request submitted");R()}
+function wSub(u){var a=+v("wa"),m=v("wm"),c=v("wc");
+if(!u.ver)return toast("Only verified users can withdraw");
+if(!(a>=S.cfg.mw&&Number.isInteger(a)))return toast("Minimum withdrawal is "+mny(S.cfg.mw));
+if(!PH.test(c))return toast("Enter a valid account number");
+if(c!=v("wc2"))return toast("Account numbers do not match");
+var r=ref();if(!post(u.id,"withdraw_hold",-a,"Withdrawal "+r))return toast("Insufficient balance");
+S.wd.unshift({id:uid(),ref:r,u:u.id,amt:a,m:m,acc:c,st:"Pending",ts:Date.now()});save();toast("Request sent. Funds reserved.");R()}
+function jSub(i){var u=U(),t=S.T.find(x=>x.id==i),n=NM[t.m],mt=n?v("jm").split(",").map(s=>s.trim()).filter(Boolean):[];
+if(t.st!="Registration Open")return toast("Registration is not open");
+if(fl(t)>=t.s)return toast("No slots left");
+if(S.reg.some(r=>r.t==i&&(r.u==u.id||r.ff==v("ju"))))return toast("You are already registered");
+if(!v("jp")||!UD.test(v("ju"))||!v("jg"))return toast("Enter name, valid UID and in-game name");
+if(!PH.test(v("jh")))return toast("Enter a valid phone number");
+if(n&&(mt.length!=n||mt.some(x=>!UD.test(x))))return toast("Enter exactly "+n+" valid teammate UID(s)");
+if(!post(u.id,"entry",-t.f,"Entry: "+t.n))return toast("Insufficient balance. Please deposit first.");
+var rid="REG"+uid().toUpperCase();S.reg.push({id:uid(),rid:rid,t:i,u:u.id,pn:v("jp"),ff:v("ju"),ign:v("jg"),ph:v("jh"),tm:n?v("jt"):"",mt:mt,ts:Date.now()});
+note(u.id,"Registered for "+t.n+" ("+rid+")");save();closeM();toast("Registered! ID: "+rid);R()}
+var AA="dap drj wpr wcp wrj ub uv ur tn te ts td tr trs rsub cs ba bd hs ha hx cm ma mx tv apw bsv lrm".split(" "),
+F={go:i=>{if(location.hash=="#"+i)route();else location.hash=i},hb:i=>{var h=S.hb[i],l=h.l||"";if(/^https?:\/\//.test(l))return window.open(l,"_blank","noopener");if(/^#[a-z]+$/.test(l))return F.go(l.slice(1));var w=S.cfg.wa;openM('<h3>'+e(h.i)+' '+e(h.n)+'</h3><p class="mu">'+e(h.m)+'</p><div class="two"><button class="btn g" data-a="cl">Close</button>'+(/^https?:\/\//.test(w)?'<a class="btn" href="'+e(w)+'" target="_blank" rel="noopener">WhatsApp</a>':"")+'</div>')},hb0:i=>{var b=HB[i],w=S.cfg.wa;openM('<h3>'+b[1]+' '+b[0]+'</h3><p class="mu">Match details will be announced soon. Message us on WhatsApp for updates.</p><div class="two"><button class="btn g" data-a="cl">Close</button>'+(/^https?:\/\//.test(w)?'<a class="btn" href="'+e(w)+'" target="_blank" rel="noopener">WhatsApp</a>':"")+'</div>')},cl:closeM,sd:i=>{show(+i);startSlider()},
+hs:()=>{var I=document.querySelectorAll(".hi"),N=document.querySelectorAll(".hn"),L=document.querySelectorAll(".hl"),G=document.querySelectorAll(".hm"),a=[...N].map((x,i)=>({i:I[i].value.trim(),n:x.value.trim(),l:L[i].value.trim(),m:G[i].value.trim()}));
+if(a.some(b=>!b.n))return toast("Every button needs a name");if(a.some(b=>b.l&&!/^(https?:\/\/|#[a-z]+$)/.test(b.l)))return toast("Link must start with https:// or look like #tournaments");
+S.hb=a;log("Updated home buttons");save();R();toast("Buttons saved")},
+ha:()=>{S.hb.push({i:"⭐",n:"New Match",l:"",m:"Details coming soon."});save();R()},hx:i=>{S.hb.splice(+i,1);save();R()},
+cm:()=>{var n=[...document.querySelectorAll(".mn")],c=[...document.querySelectorAll(".mc")],a=n.map((x,i)=>[x.value.trim(),Math.max(0,Math.min(5,Math.floor(+c[i].value||0)))]);
+if(a.some((m,i)=>!m[0]||a.some((o,j)=>j!=i&&o[0]==m[0])))return toast("Mode names must be filled and unique");
+a.forEach((m,i)=>{var o=S.modes[i][0];if(o!=m[0])S.T.forEach(t=>{if(t.m==o)t.m=m[0]})});S.modes=a;modes();log("Updated game modes");save();R();toast("Modes saved")},
+ma:()=>{S.modes.push(["New Mode",0]);modes();save();R()},mx:i=>{S.modes.splice(+i,1);modes();save();R()},
+tv:()=>{S.tx={about:v("x_ab"),privacy:v("x_pv"),terms:v("x_tm"),rules:v("x_rl")};log("Updated page texts");save();toast("Texts saved")},
+apw:async()=>{var u=U(),n=$("ap1").value;if(u.pw!=await H(u.em+"|"+$("ap0").value))return toast("Current password is wrong");if(n.length<8||!/[a-z]/i.test(n)||!/\d/.test(n))return toast("New password needs 8+ characters with letters and numbers");if(n!=$("ap2").value)return toast("Passwords do not match");u.pw=await H(u.em+"|"+n);log("Changed admin password");save();R();toast("Password changed")},
+bsv:()=>{var f=$("lf").files[0],fin=()=>{S.cfg.c1=$("c1").value;S.cfg.c2=$("c2").value;log("Updated branding");save();theme();R();toast("Branding saved")};if(!f)return fin();
+var r=new FileReader();r.onload=()=>{var im=new Image();im.onload=()=>{var w=Math.min(300,im.width),h=Math.round(im.height*w/im.width),c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);S.cfg.lg=c.toDataURL("image/png");fin()};im.onerror=()=>toast("Could not read that image");im.src=r.result};r.readAsDataURL(f)},
+lrm:()=>{S.cfg.lg="";log("Removed logo");save();R()},
+ba:()=>{var f=$("bf").files[0],l=v("bl");if(!f)return toast("Choose an image first");if(l&&!/^https?:\/\//.test(l))return toast("Link must start with https://");
+var r=new FileReader();r.onload=()=>{var im=new Image();im.onload=()=>{var w=Math.min(CLOUD?800:1200,im.width),h=Math.round(im.height*w/im.width),c=document.createElement("canvas");c.width=w;c.height=h;var x=c.getContext("2d");x.fillStyle="#000";x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);
+S.bn.push({id:uid(),img:c.toDataURL("image/jpeg",CLOUD?.6:.72),link:l});log("Added banner");if(!save()){S.bn.pop();S.au.shift();return toast("Storage is full. Delete some banners first.")}R();toast("Banner added")};im.onerror=()=>toast("Could not read that image");im.src=r.result};r.readAsDataURL(f)},
+bd:i=>{S.bn=S.bn.filter(b=>b.id!=i);log("Deleted banner");save();R()},flt:i=>{V.f=V.f==i?"All":i;R()},
+info:i=>S.tx&&S.tx[i]&&i!="contact"?openM('<h3>'+IN[i][0]+'</h3><p class="mu">'+e(S.tx[i])+'</p><button class="btn" data-a="cl">Close</button>'):i=="contact"?openM('<h3>Contact Us</h3><p class="mu">'+e(S.cfg.ct)+'</p><button class="btn" data-a="cl">Close</button>'):openM('<h3>'+IN[i][0]+'</h3><p class="mu">'+IN[i][1]+'</p><button class="btn" data-a="cl">Close</button>'),
+join:(i,u)=>{if(!u){location.hash="login";return toast("Please login first")}openM(jform(S.T.find(t=>t.id==i)))},jsub:i=>jSub(i),
+lg:doLogin,rg:doReg,lo:()=>{V.f="All";setS(null);location.hash="home";route()},fp:()=>toast("Contact the admin to reset your password"),
+tab:i=>{V.tab=i;if(location.hash!="#dash")location.hash="dash";else R()},atab:i=>{V.at=i;R()},dsub:(i,u)=>dSub(u),wsub:(i,u)=>wSub(u),
+dap:i=>{var d=S.dep.find(x=>x.id==i);if(!d||d.st!="Pending")return;post(d.u,"deposit",d.amt,"Deposit "+d.ref);d.st="Approved";note(d.u,"Deposit of "+mny(d.amt)+" approved");log("Approved deposit "+d.ref);save();R()},
+drj:i=>{var d=S.dep.find(x=>x.id==i);if(!d||d.st!="Pending")return;d.st="Rejected";note(d.u,"Deposit "+d.ref+" was rejected");log("Rejected deposit "+d.ref);save();R()},
+wpr:i=>{var w=S.wd.find(x=>x.id==i);if(!w||w.st!="Pending")return;w.st="Processing";note(w.u,"Withdrawal "+w.ref+" is being processed");log("Processing withdrawal "+w.ref);save();R()},
+wcp:i=>{var w=S.wd.find(x=>x.id==i);if(!w||w.st!="Processing")return;w.st="Completed";note(w.u,"Withdrawal "+w.ref+" completed");log("Completed withdrawal "+w.ref+" (payout confirmed)");save();R()},
+wrj:i=>{var w=S.wd.find(x=>x.id==i);if(!w||(w.st!="Pending"&&w.st!="Processing"))return;post(w.u,"refund",w.amt,"Refund "+w.ref);w.st="Rejected";note(w.u,"Withdrawal "+w.ref+" rejected and refunded");log("Rejected withdrawal "+w.ref);save();R()},
+ub:i=>{var x=S.users.find(y=>y.id==i);x.bl=!x.bl;log((x.bl?"Blocked ":"Unblocked ")+x.un);save();R()},
+uv:i=>{var x=S.users.find(y=>y.id==i);x.ver=!x.ver;log((x.ver?"Verified ":"Unverified ")+x.un);save();R()},
+ur:async i=>{var x=S.users.find(y=>y.id==i);x.pw=await H(x.em+"|Reset@123");log("Reset password for "+x.un);save();toast("Password reset to Reset@123")},
+tn:()=>openM(tform()),te:i=>openM(tform(S.T.find(t=>t.id==i))),
+ts:i=>{var t=i?S.T.find(x=>x.id==i):null,o={n:v("tn"),m:v("tm"),d:v("tdt"),f:+v("tf")||0,p:+v("tp")||0,s:+v("tsl"),st:v("tst"),r:v("trl")};
+if(!o.n||!o.d||!(o.s>=1)||o.f<0||o.p<0)return toast("Fill name, date, slots and valid amounts");
+if(t&&o.s<fl(t))return toast("Slots cannot be below registered players");
+if(t){Object.assign(t,o);log("Edited tournament "+o.n)}else{o.id=uid();o.rm=null;S.T.push(o);log("Created tournament "+o.n)}save();closeM();R()},
+td:i=>{var t=S.T.find(x=>x.id==i);S.reg.filter(r=>r.t==i).forEach(r=>{if(t.st!="Completed")post(r.u,"entry_refund",t.f,"Refund: "+t.n);note(r.u,t.n+" was cancelled")});
+S.reg=S.reg.filter(r=>r.t!=i);S.T=S.T.filter(x=>x.id!=i);log("Deleted tournament "+t.n);save();R()},
+tr:i=>openM(rform(S.T.find(t=>t.id==i))),
+trs:i=>{var t=S.T.find(x=>x.id==i);if(!v("ri")||!v("rpw")||!v("rl"))return toast("Enter room ID, password and release time");
+t.rm={id:v("ri"),pw:v("rpw"),rel:v("rl"),pub:$("rb").checked};if(t.rm.pub)S.reg.filter(r=>r.t==i).forEach(r=>note(r.u,"Room details for "+t.n+" release at "+fd(t.rm.rel)));
+log("Updated room for "+t.n);save();closeM();R()},
+rsub:()=>{var t=S.T.find(x=>x.id==v("xt")),w=S.users.find(x=>x.un==v("xw").toLowerCase()),pos=+v("xr"),pr=+v("xp")||0;
+if(!t||!w||!(pos>=1))return toast("Select tournament, valid winner and position");
+if(!S.reg.some(r=>r.t==t.id&&r.u==w.id))return toast("That user is not registered in this tournament");
+if(S.res.some(r=>r.t==t.id&&(r.u==w.id||r.pos==pos)))return toast("Result already exists for this user or position");
+if(pr>0)post(w.id,"prize",pr,"Prize: "+t.n);S.res.unshift({t:t.id,u:w.id,un:w.un,pos:pos,p:pr,ts:Date.now()});
+note(w.id,"You placed #"+pos+" in "+t.n+(pr?" and won "+mny(pr):""));log("Published result: "+t.n+" #"+pos+" "+w.un);save();R()},
+cs:()=>{var c=S.cfg,md=+v("cd"),mw=+v("cw");if(!v("cn")||!(md>=1)||!(mw>=1))return toast("Enter name and valid minimums");
+Object.assign(c,{nm:v("cn"),bk:v("cb"),ng:v("cg"),md:md,mw:mw,fb:v("cf"),ct:v("cc"),wa:v("cwa"),tg:v("ctg"),pi:v("cpi")});log("Updated website settings");save();R();toast("Settings saved")}};
+document.addEventListener("click",ev=>{if(ev.target.id=="mo")return closeM();
+if(ev.target.closest("nav a")&&$("nv"))$("nv").classList.remove("on");
+var el=ev.target.closest("[data-a]");if(!el)return;var a=el.dataset.a,u=U();
+if(AA.includes(a)&&!(u&&u.role=="admin"))return toast("Not authorized");
+if(["dsub","wsub","jsub"].includes(a)&&!u)return toast("Please login first");
+F[a]&&F[a](el.dataset.i,u)});
+document.addEventListener("input",ev=>{if(ev.target.id=="q"){var q=ev.target.value.toLowerCase();document.querySelectorAll("#app tbody tr").forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?"":"none")}});
+var SI,SN=0;
+function show(n){var s=document.querySelectorAll("#bnr .sl"),d=document.querySelectorAll("#bnr .dots i");if(!s.length)return;SN=n%s.length;s.forEach((x,i)=>x.classList.toggle("on",i==SN));d.forEach((x,i)=>x.classList.toggle("on",i==SN))}
+function startSlider(){clearInterval(SI);if(document.querySelectorAll("#bnr .sl").length<2)return;SI=setInterval(()=>{if(!$("bnr"))return clearInterval(SI);show(SN+1)},4000)}
+function theme(){var s=document.documentElement.style;s.setProperty("--red",S.cfg.c1||"#7c3aed");s.setProperty("--red2",S.cfg.c2||"#22d3ee")}
+function modes(){M=S.modes.map(x=>x[0]);NM={};S.modes.forEach(x=>NM[x[0]]=x[1])}
+function bpage(){var h=S.hb.find(x=>x.k==location.hash.slice(4));if(!h)return '<div class="wrap" style="padding:20px 18px"><button class="btn s g" data-a="go" data-i="home">←</button></div>';
+return '<div class="wrap" style="padding:20px 18px"><div style="display:flex;align-items:center;gap:12px"><button class="btn s g" data-a="go" data-i="home">←</button><h2 class="logo"><span style="display:inline-block;width:30px;height:30px;vertical-align:middle;color:var(--red2)">'+ico(h)+'</span> '+e(h.n)+'</h2></div>'+(h.im?'<img src="'+h.im+'" alt="" style="width:100%;border-radius:12px;margin-top:16px;display:block">':"")+(h.c?'<div class="card" style="margin-top:16px;white-space:pre-wrap">'+e(h.c)+'</div>':"")+(h.md?'<div class="grid" style="margin-top:16px">'+(S.T.filter(t=>t.m==h.md).map(card).join("")||'<p class="empty">No matches available right now. Please check back soon.</p>')+'</div>':"")+'</div>'}
+AA.push("hpe","hps","hpr");
+F.hb=i=>{var h=S.hb[i],l=h.l||"";if(/^https?:\/\//.test(l))return window.open(l,"_blank","noopener");if(/^#[a-z]+$/.test(l))return F.go(l.slice(1));F.go("pg-"+h.k)};
+F.ha=()=>{S.hb.push({k:uid(),i:"⭐",n:"New Page",l:"",c:"",im:"",md:""});save();R()};
+F.hs=()=>{var I=document.querySelectorAll(".hi"),N=document.querySelectorAll(".hn"),L=document.querySelectorAll(".hl"),a=[...N].map((x,i)=>Object.assign({},S.hb[i],{i:I[i].value.trim(),n:x.value.trim(),l:L[i].value.trim()}));
+if(a.some(b=>!b.n))return toast("Every button needs a name");if(a.some(b=>b.l&&!/^(https?:\/\/|#[a-z]+$)/.test(b.l)))return toast("Link must start with https:// or look like #tournaments");S.hb=a;log("Updated home buttons");save();R();toast("Buttons saved")};
+F.hpe=i=>{var h=S.hb[i];openM('<h3>Edit page: '+e(h.n)+'</h3><br><textarea id="pc" placeholder="Page text (leave empty for a blank page)">'+e(h.c)+'</textarea><p class="mu">Image'+(h.im?' · <a class="lk" data-a="hpr" data-i="'+i+'">Remove image</a>':"")+'</p><input id="pi" type="file" accept="image/*"><p class="mu">Show tournaments of mode</p><select id="pm"><option value="">None</option>'+M.map(m=>'<option'+(h.md==m?" selected":"")+'>'+e(m)+'</option>').join("")+'</select><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="hps" data-i="'+i+'">Save Page</button></div>')};
+F.hpr=i=>{S.hb[i].im="";save();F.hpe(i)};
+F.hps=i=>{var h=S.hb[i],f=$("pi").files[0],fin=()=>{h.c=$("pc").value.trim();h.md=$("pm").value;log("Edited page "+h.n);if(!save())return toast("Storage is full. Try a smaller image.");closeM();R();toast("Page saved")};
+if(!f)return fin();var r=new FileReader();r.onload=()=>{var im=new Image();im.onload=()=>{var w=Math.min(900,im.width),ht=Math.round(im.height*w/im.width),c=document.createElement("canvas");c.width=w;c.height=ht;c.getContext("2d").drawImage(im,0,0,w,ht);h.im=c.toDataURL("image/jpeg",.72);fin()};im.onerror=()=>toast("Could not read that image");im.src=r.result};r.readAsDataURL(f)};
+var _sv=save,PT;
+save=function(){var r=CM?1:_sv();push();sync();return r};
+function ld(u){return new Promise((a,b)=>{var s=document.createElement("script");s.src=u;s.onload=a;s.onerror=b;document.head.appendChild(s)})}
+function applyIm(){(S.hb||[]).forEach(h=>{h.im=IM[h.k]||"";h.bi=IM[h.k+"_b"]||""})}
+
+function cloudBoot(){if(!FB.apiKey)return;S.T=[];S.res=[];S.ann=[];["users","dep","wd","reg","nt","led","au"].forEach(c=>S[c]=[]);var b="https://www.gstatic.com/firebasejs/10.12.2/firebase-";
+ld(b+"app-compat.js").then(()=>Promise.all([ld(b+"firestore-compat.js"),ld(b+"auth-compat.js")])).then(()=>{
+firebase.initializeApp(FB);db=firebase.firestore();CLOUD=1;
+db.doc("site/content").onSnapshot(s=>{if(!s.exists||s.metadata.hasPendingWrites)return;var d=s.data();["cfg","tx","modes","hb"].forEach(k=>{if(d[k]!=null)try{S[k]=JSON.parse(d[k])}catch(x){}});modes();applyIm();_sv();rr()});
+db.doc("site/media").onSnapshot(s=>{if(!s.exists||s.metadata.hasPendingWrites)return;var d=s.data();try{if(d.bn)S.bn=JSON.parse(d.bn);IM=d.hbim?JSON.parse(d.hbim):{}}catch(x){}applyIm();_sv();rr()});
+firebase.auth().onAuthStateChanged(authCh)}).catch(()=>toast("Cloud sync could not load"))}
+function push(now){if(!CLOUD||!FA)return;clearTimeout(PT);PT=setTimeout(()=>{var db=firebase.firestore(),c={},im={},er=x=>toast("Cloud save failed: "+(x.code||x.message));
+["cfg","tx","modes"].forEach(k=>c[k]=JSON.stringify(S[k]));c.hb=JSON.stringify(S.hb.map(h=>Object.assign({},h,{im:"",bi:""})));S.hb.forEach(h=>{if(h.im)im[h.k]=h.im;if(h.bi)im[h.k+"_b"]=h.bi});
+var m={bn:JSON.stringify(S.bn),hbim:JSON.stringify(im)},jc=JSON.stringify(c),jm=JSON.stringify(m),ee=x=>{LP={};er(x)};if(now||jc!=LP.c){LP.c=jc;db.doc("site/content").set(c).catch(ee)}if(now||jm!=LP.m){LP.m=jm;db.doc("site/media").set(m).catch(ee)}},now?0:600)}
+function cloudCard(){return '<div class="card" style="margin-top:14px"><h3>Cloud Sync (Firebase)</h3><br><p class="mu">Status: <b class="pz">'+(!FB.apiKey?"Not set up. Paste your Firebase config in the code.":!CLOUD?"Loading…":FA?"Connected as admin":"Connected (read-only)")+'</b></p>'+(CLOUD&&!FA?'<input id="fbe" type="email" placeholder="Firebase admin email"><input id="fbp" type="password" placeholder="Firebase admin password"><button class="btn" data-a="fbs">Connect &amp; Publish</button>':CLOUD?'<button class="btn" data-a="fbp2">Publish Now</button> <button class="btn g" data-a="fbo">Disconnect</button>':"")+'</div>'}
+var _si=AD.si;AD.si=()=>cloudCard()+_si();
+AA.push("fbs","fbp2","fbo");
+F.fbs=()=>{firebase.auth().signInWithEmailAndPassword(v("fbe"),$("fbp").value).then(()=>{push(1);toast("Connected. Content published.")}).catch(x=>toast("Sign-in failed: "+x.code))};
+F.fbp2=()=>{push(1);toast("Published")};
+F.fbo=()=>firebase.auth().signOut().then(()=>R());
+var db,ME=null,FAU=null,ADM=0,UN=[],SY={},did=(c,o)=>c=="reg"?o.t+"_"+o.u:c=="dep"?o.m+"_"+String(o.tx).toUpperCase():o.id,ERR=x=>toast("Cloud error: "+(x.code||x.message));
+function sub(c,q){return(q||db.collection(c)).onSnapshot(s=>{var a=s.docs.map(d=>d.data()),k=c=="led"||c=="reg"||c=="users"?1:-1;a.sort(c=="T"?(x,y)=>String(x.id).localeCompare(y.id):(x,y)=>k*((x.ts||0)-(y.ts||0)));if(c=="nt"&&!ADM){if(NT0&&a.length>S.nt.length&&a[0])toast(a[0].m);NT0=1}S[c]=a;SY[c]={};a.forEach(o=>SY[c][did(c,o)]=JSON.stringify(o));rr()},ERR)}
+function authCh(u){UN.forEach(f=>f());UN=[];NT0=0;ME=u?u.uid:null;FAU=u;ADM=0;FA=null;SY={};
+var go=()=>{if(SITE=="admin"&&u&&!ADM){firebase.auth().signOut();toast("This account is not an admin");return}FA=ADM?u:null;UN.push(sub("T",db.collection("T").orderBy("d","desc").limit(100)),sub("res",db.collection("res").orderBy("ts","desc").limit(60)),sub("ann",db.collection("ann").orderBy("ts","desc").limit(20)));
+if(u&&ADM){["users","dep","wd","reg","nt","led","au"].forEach(c=>UN.push(sub(c)));UN.push(sub("act",db.collection("act").where("d",">=",DD(Date.now()-30*864e5))))}
+else if(u){var q=c=>db.collection(c).where("u","==",u.uid);["dep","wd","reg","nt","led"].forEach(c=>UN.push(sub(c,q(c))));UN.push(db.doc("users/"+u.uid).onSnapshot(s=>{S.users=s.exists?[s.data()]:[];SY.users={};rr()},ERR))}
+else{["users","dep","wd","reg","nt","led","au"].forEach(c=>S[c]=[]);_sv()}
+R()};
+if(!u)return go();db.doc("admins/"+u.uid).get().then(s=>{ADM=s.exists},()=>{}).then(go)}
+function sync(){if(!CM||!ME||!db)return;var b=db.batch(),n=0;(ADM?["users","dep","wd","reg","nt","led","res","au","T","ann"]:["dep","wd","reg"]).forEach(c=>{var y=SY[c];if(!y)return;var seen={};
+S[c].forEach(o=>{if(!o.id)o.id=uid();var k=did(c,o),j=JSON.stringify(o);seen[k]=1;if(y[k]!=j){b.set(db.collection(c).doc(k),JSON.parse(j));y[k]=j;n++}});
+Object.keys(y).forEach(k=>{if(!seen[k]){b.delete(db.collection(c).doc(k));delete y[k];n++}})});
+if(n)b.commit().catch(ERR)}
+function cReg(){var n=v("rn"),us=v("ru").toLowerCase(),em=v("re").toLowerCase(),ph=v("rp"),p=$("rw").value,er=[[n.length<3,"Enter your full name"],[!/^[a-z0-9_]{3,20}$/.test(us),"Username: 3-20 letters, numbers or _"],[!/^\S+@\S+\.\S+$/.test(em),"Enter a valid email"],[!PH.test(ph),"Enter a valid BD phone number"],[p.length<8||!/[a-z]/i.test(p)||!/\d/.test(p),"Password needs 8+ characters with letters and numbers"],[p!=$("rc").value,"Passwords do not match"]].find(x=>x[0]);
+if(er)return toast(er[1]);
+firebase.auth().createUserWithEmailAndPassword(em,p).then(c=>{var id=c.user.uid,b=db.batch();b.set(db.doc("usernames/"+us),{u:id});b.set(db.doc("phones/"+ph),{u:id});b.set(db.doc("users/"+id),{id:id,name:n,un:us,em:em,ph:ph,role:"user",ver:0,bl:0,ts:Date.now()});
+return b.commit().catch(()=>c.user.delete().then(()=>{throw{code:"dup"}}))}).then(()=>toast("Account created")).catch(x=>toast(x.code=="dup"?"Username or phone is already registered":"Sign-up failed: "+String(x.code||"").replace("auth/","")))}
+function cJ(i){var u=U(),t=S.T.find(x=>x.id==i),n=NM[t.m],mt=n?v("jm").split(",").map(s=>s.trim()).filter(Boolean):[];
+if(t.st!="Registration Open")return toast("Registration is not open");
+if((t.cnt||0)>=t.s)return toast("No slots left");
+if(S.reg.some(r=>r.t==i&&r.u==u.id))return toast("You already requested this tournament");
+if(!v("jp")||!UD.test(v("ju"))||!v("jg"))return toast("Enter name, valid UID and in-game name");
+if(!PH.test(v("jh")))return toast("Enter a valid phone number");
+if(n&&(mt.length!=n||mt.some(x=>!UD.test(x))))return toast("Enter exactly "+n+" valid teammate UID(s)");
+if(bal(u.id)<t.f)return toast("Insufficient balance. Please deposit first.");
+var rid="REG"+uid().toUpperCase();S.reg.push({id:uid(),rid:rid,t:i,u:u.id,pn:v("jp"),ff:v("ju"),ign:v("jg"),ph:v("jh"),tm:n?v("jt"):"",mt:mt,fee:t.f,st:"Pending",ts:Date.now()});
+save();closeM();toast("Entry request sent ("+rid+"). Admin will confirm.");R()}
+function cW(u){var a=+v("wa"),m=v("wm"),c=v("wc");
+if(!u.ver)return toast("Only verified users can withdraw");
+if(!(a>=S.cfg.mw&&Number.isInteger(a)))return toast("Minimum withdrawal is "+mny(S.cfg.mw));
+if(!PH.test(c))return toast("Enter a valid account number");
+if(c!=v("wc2"))return toast("Account numbers do not match");
+if(a>bal(u.id))return toast("Insufficient balance");
+S.wd.unshift({id:uid(),ref:ref(),u:u.id,amt:a,m:m,acc:c,st:"Pending",ts:Date.now()});save();toast("Request sent. Admin will process it.");R()}
+AD.rg=()=>tbl(["Tournament","User","Player","UID","Phone","Status","Action"],S.reg.map(r=>[e(TN(r.t).n),e(NU(r.u)),e(r.pn),e(r.ff),e(r.ph),sb(r.st||"Approved"),r.st=="Pending"?btn("rap",r.id,"Approve")+btn("rrj",r.id,"Reject"):"—"]));
+AA.push("rap","rrj");
+if(CM){U=function(){return !ME?null:ADM?{id:ME,name:"Admin",un:"admin",em:FAU.email,role:"admin",ver:1,bl:0,ts:0}:S.users.find(x=>x.id==ME&&!x.bl)};
+fl=t=>t.cnt||0;jSub=cJ;wSub=cW;
+F.lg=()=>{var em=v("li").toLowerCase();if(!/^\S+@\S+\.\S+$/.test(em))return toast("Please log in with your email address");firebase.auth().signInWithEmailAndPassword(em,$("lp").value).catch(x=>toast("Login failed: "+String(x.code||"").replace("auth/","")))};
+F.rg=cReg;F.lo=()=>{location.hash="home";firebase.auth().signOut()};
+F.fp=()=>{var em=v("li").toLowerCase();if(!/^\S+@\S+\.\S+$/.test(em))return toast("Type your email in the box first");firebase.auth().sendPasswordResetEmail(em).then(()=>toast("Password reset email sent"),ERR)};
+F.wpr=i=>{var w=S.wd.find(x=>x.id==i);if(!w||w.st!="Pending")return;if(!post(w.u,"withdraw_hold",-w.amt,"Withdrawal "+w.ref))return toast("User balance is too low");w.st="Processing";note(w.u,"Withdrawal "+w.ref+" is being processed");log("Processing withdrawal "+w.ref);save();R()};
+F.wrj=i=>{var w=S.wd.find(x=>x.id==i);if(!w||(w.st!="Pending"&&w.st!="Processing"))return;if(w.st=="Processing")post(w.u,"refund",w.amt,"Refund "+w.ref);w.st="Rejected";note(w.u,"Withdrawal "+w.ref+" was rejected");log("Rejected withdrawal "+w.ref);save();R()};
+F.rap=i=>{var r=S.reg.find(x=>x.id==i),t=r&&S.T.find(x=>x.id==r.t);if(!r||!t||r.st!="Pending")return;if((t.cnt||0)>=t.s)return toast("No slots left");if(!post(r.u,"entry",-r.fee,"Entry: "+t.n))return toast("User balance is too low");r.st="Approved";t.cnt=(t.cnt||0)+1;note(r.u,"Entry confirmed: "+t.n);log("Approved entry "+r.rid);save();R()};
+F.rrj=i=>{var r=S.reg.find(x=>x.id==i);if(!r||r.st!="Pending")return;S.reg=S.reg.filter(x=>x.id!=i);note(r.u,"Entry rejected: "+TN(r.t).n+". You can try again.");log("Rejected entry "+r.rid);save();R()};
+F.td=i=>{var t=S.T.find(x=>x.id==i);S.reg.filter(r=>r.t==i).forEach(r=>{if(r.st=="Approved"&&t.st!="Completed")post(r.u,"entry_refund",r.fee,"Refund: "+t.n);note(r.u,t.n+" was cancelled")});S.reg=S.reg.filter(r=>r.t!=i);S.T=S.T.filter(x=>x.id!=i);log("Deleted tournament "+t.n);save();R()};
+F.ur=i=>{var x=S.users.find(y=>y.id==i);firebase.auth().sendPasswordResetEmail(x.em).then(()=>toast("Reset email sent to "+x.em),ERR)};
+F.apw=()=>toast("Change the admin password in Firebase Console, Authentication")}
+var SYN=p=>p+"@sitournamentbd.app",OKU=x=>/^https?:\/\//.test(x||"");
+var PGT={about:"About Us",rules:"Rules & Regulations",privacy:"Privacy Policy",terms:"Terms & Conditions",contact:"Contact Us",support:"Customer Support"};
+function ipage(){var k=location.hash.slice(1),t=S.tx||{},c=S.cfg,d={about:t.about||IN.about[1],rules:t.rules||"1. One account per player.\n2. Cheating, hacking or teaming up with opponents means a permanent ban.\n3. Enter the room on time. Late players are not refunded.\n4. Admin decisions are final.",privacy:t.privacy||IN.privacy[1],terms:t.terms||IN.terms[1],contact:"Reach us any time using the details below.",support:"Need help with a deposit, withdrawal or match? Message us and we will reply as soon as possible."};
+var x=k=="contact"||k=="support"?'<div class="card" style="margin-top:16px">'+rw("Email / Phone",c.ct)+'<p>'+(OKU(c.wa)?'<a class="btn s" href="'+e(c.wa)+'" target="_blank" rel="noopener">WhatsApp</a> ':"")+(OKU(c.tg)?'<a class="btn s" href="'+e(c.tg)+'" target="_blank" rel="noopener">Telegram</a> ':"")+(OKU(c.fb)?'<a class="btn s g" href="'+e(c.fb)+'" target="_blank" rel="noopener">Facebook</a>':"")+'</p></div>':"";
+return '<div class="wrap" style="padding:28px 18px;max-width:760px">'+ttl(e(PGT[k]||""),"")+'<div class="card" style="white-space:pre-wrap">'+e(d[k]||"")+'</div>'+x+'</div>'}
+function lpage(){return '<div class="wrap" style="padding:28px 18px">'+ttl("Leader","board")+tbl(["Tournament","Rank","Winner","Prize"],S.res.map(r=>[e(TN(r.t).n),"#"+r.pos,e(r.un),mny(r.p)]))+'</div>'}
+var ICOL={solo:"#22d3ee",duo:"#60a5fa",br:"#a78bfa",squad:"#f472b6",wolf:"#34d399",zone:"#fb923c"};
+var ICONS={solo:'<circle cx="24" cy="15" r="8"/><path d="M8 42c0-9 7-15 16-15s16 6 16 15"/>',
+duo:'<circle cx="16" cy="16" r="7"/><circle cx="34" cy="18" r="6"/><path d="M3 42c0-8 6-14 13-14s13 6 13 14M31 29c8 0 14 5 14 13"/>',
+br:'<path d="M5 21a19 15 0 0 1 38 0z"/><path d="M5 21l15 17M43 21L28 38M24 21v17"/><rect x="19" y="38" width="10" height="7" rx="1.5"/>',
+squad:'<path d="M24 4l16 6v12c0 11-7 18-16 22C15 40 8 33 8 22V10z"/><circle cx="24" cy="19" r="4.5"/><path d="M15 33c1-5 4-8 9-8s8 3 9 8"/>',
+wolf:'<path d="M5 6l11 7h16l11-7-3 17 4 9-13 13h-6L7 32l4-9z"/><path d="M16 26l5 3M32 26l-5 3M24 33v5M21 38h6"/>',
+zone:'<circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="7"/><circle cx="24" cy="24" r="1.5" fill="currentColor"/><path d="M2 24h8m0 0l-3-3m3 3l-3 3M46 24h-8m0 0l3-3m-3 3l3 3"/>'};
+function ico(h){return h.i?'<span style="font-size:46px;line-height:66px;display:block">'+e(h.i)+'</span>':(h.ic&&ICONS[h.ic]?'<svg viewBox="0 0 48 48" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'+ICONS[h.ic]+'</svg>':"")}
+function dhb(){return[["solo","Solo Match","Solo"],["duo","Duo Match","Duo"],["br","BR Match","BR"],["squad","Classic Squad Match","Classic Squad"],["wolf","Lone Wolf Match","Lone Wolf"],["zone","Zone Push Match","Zone Push"]].map(x=>({k:x[0],ic:x[0],n:x[1],md:x[2],i:"",l:"",c:"",im:""}))}
+var MODES6=[["Solo",0],["Duo",1],["BR",3],["Classic Squad",3],["Lone Wolf",0],["Zone Push",3]];
+function mig(){if(S.hbv==2)return;S.hbv=2;S.hb=dhb();S.modes=MODES6.map(x=>x.slice());S.T.forEach(t=>{if(t.m=="Squad")t.m="Classic Squad";if(t.m=="Clash Squad")t.m="Zone Push"});modes();
+if(SITE=="demo"){var sm={Solo:["Solo Showdown #2",20,600,48,"2026-12-10T19:30"],Duo:["Duo Clash #2",40,1200,24,"2026-12-11T20:00"],BR:["BR Showdown #1",50,1500,48,"2026-12-12T20:00"],"Classic Squad":["Squad War #2",80,3000,12,"2026-12-12T21:00"],"Lone Wolf":["Lone Wolf 1v1 #1",20,500,16,"2026-12-13T19:00"],"Zone Push":["Zone Push Cup #1",40,1000,24,"2026-12-14T20:30"]};MODES6.forEach(m=>{if(!S.T.some(t=>t.m==m[0])){var a=sm[m[0]];S.T.push(mk(a[0],m[0],a[1],a[2],a[3],a[4]))}})}}
+var _ld=load;load=function(){_ld();mig()};
+home=function(){var b=S.bn||[];
+return '<section class="bsec"><div class="wrap">'+(b.length?'<div class="bnr" id="bnr">'+b.map((x,i)=>(OKU(x.link)?'<a class="sl'+(i?"":" on")+'" href="'+e(x.link)+'" target="_blank" rel="noopener">':'<div class="sl'+(i?"":" on")+'">')+'<img src="'+x.img+'" alt="">'+(OKU(x.link)?'</a>':'</div>')).join("")+(b.length>1?'<div class="dots">'+b.map((x,i)=>'<i data-a="sd" data-i="'+i+'" class="'+(i?"":"on")+'"></i>').join("")+'</div>':"")+'</div>':'<div class="bnr dflt"><div><span class="tag">FREE FIRE ESPORTS</span><h2 style="margin-top:10px">'+e(S.cfg.nm)+'</h2></div></div>')+'</div></section>'
++'<section style="padding:6px 0"><div class="wrap"><div class="hbs">'+S.hb.map(hbtn).join("")+'</div></div></section>'};
+F.ht=i=>{V.ht=i;R()};
+var _hd=hdr;hdr=function(u,ac){_hd(u,ac);var n=e(S.cfg.nm),c=S.cfg;
+if(SITE=="admin"){$("bn").style.display="none";$("sp").innerHTML="";$("ft").innerHTML="";$("hd").innerHTML='<div class="wrap nav"><span class="logo">'+(c.lg?'<img class="lgi" src="'+c.lg+'" alt="">':"")+n+' <b>ADMIN</b></span>'+(u?'<a data-a="lo" class="pill">Logout</a>':"")+'</div>'}
+else $("ft").innerHTML='<div class="wrap">'+[["about","About Us"],["rules","Rules"],["contact","Contact Us"],["support","Support"],["leaderboard","Leaderboard"],["privacy","Privacy Policy"],["terms","Terms &amp; Conditions"]].map(x=>'<a href="#'+x[0]+'">'+x[1]+'</a>').join("")+(OKU(c.fb)?'<a href="'+e(c.fb)+'" target="_blank" rel="noopener">Facebook</a>':"")+'<p>© 2026 '+n+'</p></div>'};
+if(SITE=="admin")login=()=>'<div class="wrap" style="max-width:420px;padding:50px 18px"><div class="card"><h3>Admin Login</h3><br><input id="li" placeholder="Admin mobile or email" autocomplete="username"><input id="lp" type="password" placeholder="Password" autocomplete="current-password"><button class="btn" style="width:100%" data-a="lg">Login</button></div></div>';
+F.lg=()=>{var i=v("li").toLowerCase(),em=/^\S+@\S+\.\S+$/.test(i)?i:PH.test(i)?SYN(i):"";if(!em)return toast("Enter your mobile number");firebase.auth().signInWithEmailAndPassword(em,$("lp").value).catch(()=>toast("Login failed. Check your mobile number and password."))};
+F.rg=()=>{var n=v("rn"),us=v("ru").toLowerCase(),ph=v("rp"),p=$("rw").value,er=[[n.length<3,"Enter your full name"],[!/^[a-z0-9_]{3,20}$/.test(us),"Username: 3-20 letters, numbers or _"],[!PH.test(ph),"Enter a valid BD mobile number"],[p.length<8||!/[a-z]/i.test(p)||!/\d/.test(p),"Password needs 8+ characters with letters and numbers"],[p!=$("rc").value,"Passwords do not match"]].find(x=>x[0]);
+if(er)return toast(er[1]);
+firebase.auth().createUserWithEmailAndPassword(SYN(ph),p).then(c=>{var id=c.user.uid,b=db.batch();b.set(db.doc("usernames/"+us),{u:id});b.set(db.doc("phones/"+ph),{u:id});b.set(db.doc("users/"+id),{id:id,name:n,un:us,em:SYN(ph),ph:ph,role:"user",ver:0,bl:0,ts:Date.now()});
+return b.commit().catch(()=>c.user.delete().then(()=>{throw{code:"dup"}}))}).then(()=>toast("Account created")).catch(x=>toast(x.code=="dup"||x.code=="auth/email-already-in-use"?"This mobile number or username is already registered":"Sign-up failed. Try again."))};
+F.fp=()=>{var w=S.cfg.wa;openM('<h3>Forgot password?</h3><p class="mu">For your safety, passwords are reset by our support team. Message us with your registered mobile number and username.</p><div class="two"><button class="btn g" data-a="cl">Close</button>'+(OKU(w)?'<a class="btn" href="'+e(w)+'" target="_blank" rel="noopener">WhatsApp</a>':"")+'</div>')};
+var _pf=DP.pf;DP.pf=(u,b)=>_pf(u,b)+'<div class="card" style="max-width:480px;margin-top:16px"><h3>Change Password</h3><br><input id="cp0" type="password" placeholder="Current password"><input id="cp1" type="password" placeholder="New password"><input id="cp2" type="password" placeholder="Confirm new password"><button class="btn" data-a="cpw">Change Password</button></div>';
+F.cpw=()=>{var u=firebase.auth().currentUser,n=$("cp1").value;if(n.length<8||!/[a-z]/i.test(n)||!/\d/.test(n))return toast("New password needs 8+ characters with letters and numbers");if(n!=$("cp2").value)return toast("Passwords do not match");
+u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,$("cp0").value)).then(()=>u.updatePassword(n)).then(()=>{toast("Password changed");R()},()=>toast("Could not change password. Check your current password."))};
+var _tx=DP.tx;DP.tx=(u,b)=>'<div class="card" style="margin-top:12px;max-width:360px"><span class="mu">Available Balance</span><p class="big pz">'+mny(b)+'</p></div>'+_tx(u,b);
+DP.mh=u=>tbl(["Tournament","Mode","Date","Result","Prize"],S.reg.filter(r=>r.u==u.id&&(r.st||"Approved")=="Approved"&&TN(r.t).st=="Completed").map(r=>{var t=TN(r.t),w=S.res.find(x=>x.t==r.t&&x.u==u.id);return[e(t.n),e(t.m),fd(t.d),w?"#"+w.pos:"—",w?mny(w.p):"—"]}));
+AD.an=()=>'<div class="card" style="margin-top:14px;max-width:520px"><h3>New Announcement</h3><br><input id="at1" placeholder="Title"><textarea id="at2" placeholder="Message"></textarea><button class="btn" data-a="ana">Publish</button></div>'+tbl(["Title","Message","Date",""],S.ann.map(a=>[e(a.t),e(a.m),fd(a.ts),btn("and",a.id,"Delete")]));
+F.ana=()=>{if(!v("at1")||!v("at2"))return toast("Enter a title and a message");S.ann.unshift({id:uid(),t:v("at1"),m:v("at2"),ts:Date.now()});log("Published announcement");save();R()};
+F.and=i=>{S.ann=S.ann.filter(a=>a.id!=i);log("Deleted announcement");save();R()};
+AD.rp=()=>{var dp=S.dep.filter(x=>x.st=="Approved"),wd=S.wd.filter(x=>x.st=="Completed");return sg([["Deposits Approved",dp.length+" · "+mny(sum(dp,x=>x.amt))],["Deposits Pending",S.dep.filter(x=>x.st=="Pending").length],["Withdrawals Paid",wd.length+" · "+mny(sum(wd,x=>x.amt))],["Withdrawals Pending",S.wd.filter(x=>x.st=="Pending"||x.st=="Processing").length],["Total Users",S.users.filter(x=>x.role!="admin").length]])+tbl(["Tournament","Status","Entries","Fees","Prizes","Profit"],S.T.map(t=>{var g=S.reg.filter(r=>r.t==t.id&&r.st=="Approved"),f=sum(g,r=>r.fee),p=sum(S.res.filter(r=>r.t==t.id),r=>r.p);return[e(t.n),e(t.st),g.length+"/"+t.s,mny(f),mny(p),mny(f-p)]}))};
+F.uw=i=>openM('<h3>Wallet: '+e(NU(i))+'</h3><p class="mu">Balance '+mny(bal(i))+'</p><select id="wty"><option value="1">Add money</option><option value="-1">Deduct money</option></select><input id="wam" type="number" placeholder="Amount"><input id="wno" placeholder="Reason (shown in history)"><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="uws" data-i="'+i+'">Save</button></div>');
+F.uws=i=>{var a=Math.floor(+v("wam")),s=+v("wty");if(!(a>0)||!v("wno"))return toast("Enter an amount and a reason");if(!post(i,"adjust",s*a,v("wno")))return toast("Balance cannot go below zero");note(i,"Wallet "+(s>0?"credited ":"debited ")+mny(a)+": "+v("wno"));log("Wallet adjust "+NU(i)+" "+s*a);save();closeM();R()};
+AA.push("ana","and","uw","uws");
+function hbtn(h,i){return h.bi?'<button class="hbn pic" style="background-image:linear-gradient(180deg,rgba(5,5,15,0) 30%,rgba(5,5,15,.92)),url('+h.bi+')" data-a="hb" data-i="'+i+'"><b>'+e(h.n)+'</b></button>':'<button class="hbn" style="--c:'+(ICOL[h.ic]||"#22d3ee")+'" data-a="hb" data-i="'+i+'"><span class="ico">'+ico(h)+'</span><b>'+e(h.n)+'</b></button>'}
+function cmp(f,w,cb){var r=new FileReader();r.onload=()=>{var im=new Image();im.onload=()=>{var k=Math.min(w,im.width),ht=Math.round(im.height*k/im.width),c=document.createElement("canvas");c.width=k;c.height=ht;c.getContext("2d").drawImage(im,0,0,k,ht);cb(c.toDataURL("image/jpeg",.72))};im.onerror=()=>toast("Could not read that image");im.src=r.result};r.readAsDataURL(f)}
+F.hpe=i=>{var h=S.hb[i];openM('<h3>Edit page: '+e(h.n)+'</h3><br><p class="mu">Button picture (shown on the home page)'+(h.bi?' · <a class="lk" data-a="bir" data-i="'+i+'">Remove picture</a>':"")+'</p><input id="pb" type="file" accept="image/*"><textarea id="pc" placeholder="Page text (optional)">'+e(h.c)+'</textarea><p class="mu">Page image'+(h.im?' · <a class="lk" data-a="hpr" data-i="'+i+'">Remove image</a>':"")+'</p><input id="pi" type="file" accept="image/*"><p class="mu">Show tournaments of mode</p><select id="pm"><option value="">None</option>'+M.map(m=>'<option'+(h.md==m?" selected":"")+'>'+e(m)+'</option>').join("")+'</select><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="hps" data-i="'+i+'">Save Page</button></div>')};
+F.hps=i=>{var h=S.hb[i],f1=$("pb").files[0],f2=$("pi").files[0],fin=()=>{h.c=$("pc").value.trim();h.md=$("pm").value;log("Edited page "+h.n);if(!save())return toast("Storage is full. Try smaller images.");closeM();R();toast("Page saved")},s2=()=>f2?cmp(f2,900,d=>{h.im=d;fin()}):fin();f1?cmp(f1,520,d=>{h.bi=d;s2()}):s2()};
+F.bir=i=>{S.hb[i].bi="";save();F.hpe(i)};
+AA.push("bir");
+F.uw=i=>openM('<h3>Wallet: '+e(NU(i))+'</h3><p class="mu">Current balance <b class="pz">'+mny(bal(i))+'</b></p><select id="wty"><option value="1">Add money</option><option value="-1">Deduct money</option><option value="0">Set balance to exact amount</option></select><input id="wam" type="number" placeholder="Amount"><input id="wno" placeholder="Reason (shown in history)"><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="uws" data-i="'+i+'">Save</button></div>');
+F.uws=i=>{var s=+v("wty"),x=Math.floor(+v("wam")),b=bal(i),d=s==0?x-b:s*x;if(!(x>=0)||(s!=0&&x==0)||!v("wno"))return toast("Enter an amount and a reason");if(!d)return toast("Balance is already that amount");if(!post(i,"adjust",d,v("wno")))return toast("Balance cannot go below zero");note(i,"Wallet "+(d>0?"credited ":"debited ")+mny(Math.abs(d))+": "+v("wno"));log("Wallet adjust "+NU(i)+" "+d);save();closeM();R()};
+F.ue=i=>{var x=S.users.find(y=>y.id==i);openM('<h3>Edit user</h3><p class="mu">@'+e(x.un)+' · '+e(x.ph)+'</p><input id="ean" value="'+e(x.name)+'" placeholder="Full name"><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="ues" data-i="'+i+'">Save</button></div>')};
+F.ues=i=>{var x=S.users.find(y=>y.id==i);if(v("ean").length<2)return toast("Enter a name");x.name=v("ean");log("Edited user "+x.un);save();closeM();R()};
+AD.an=()=>'<div class="card" style="margin-top:14px;max-width:520px"><h3>New Announcement</h3><br><input id="at1" placeholder="Title"><textarea id="at2" placeholder="Message"></textarea><button class="btn" data-a="ana">Publish</button></div>'+tbl(["Title","Message","Date",""],S.ann.map(a=>[e(a.t),e(a.m),fd(a.ts),btn("ane",a.id,"Edit")+btn("and",a.id,"Delete")]));
+F.ane=i=>{var a=S.ann.find(x=>x.id==i);openM('<h3>Edit announcement</h3><br><input id="et1" value="'+e(a.t)+'"><textarea id="et2">'+e(a.m)+'</textarea><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="anes" data-i="'+i+'">Save</button></div>')};
+F.anes=i=>{var a=S.ann.find(x=>x.id==i);if(!v("et1")||!v("et2"))return toast("Enter a title and a message");a.t=v("et1");a.m=v("et2");log("Edited announcement");save();closeM();R()};
+AA.push("ue","ues","ane","anes");
+ICONS.star='<path d="M24 5l5.5 12 13 1.5-9.6 9 2.6 12.9L24 33l-11.5 7.4 2.6-12.9-9.6-9 13-1.5z"/>';ICOL.star="#fbbf24";
+ico=function(h){return h.i?'<span style="font-size:46px;line-height:66px;display:block">'+e(h.i)+'</span>':'<svg viewBox="0 0 48 48" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[h.ic]||ICONS.star)+'</svg>'};
+F.ha=()=>openM('<h3>Add home button</h3><br><input id="an1" placeholder="Button name (e.g. Special Event)"><p class="mu">Picture (optional, replaces the logo)</p><input id="anf" type="file" accept="image/*"><input id="an2" placeholder="Icon emoji (optional, used when there is no picture)"><p class="mu">Show tournaments of mode</p><select id="an3"><option value="">None (text page)</option>'+M.map(m=>'<option>'+e(m)+'</option>').join("")+'</select><input id="an4" placeholder="Link (optional: https://… or #tournaments)"><div class="two"><button class="btn g" data-a="cl">Cancel</button><button class="btn" data-a="has">Add Button</button></div>');
+F.has=()=>{var n=v("an1"),l=v("an4"),f=$("anf").files[0];if(!n)return toast("Enter a button name");if(l&&!/^(https?:\/\/|#[a-z]+$)/.test(l))return toast("Link must start with https:// or look like #tournaments");
+var b={k:uid(),ic:"star",n:n,i:v("an2"),l:l,c:"",im:"",bi:"",md:$("an3").value},fin=()=>{S.hb.push(b);log("Added home button "+n);if(!save()){S.hb.pop();return toast("Storage is full. Try a smaller picture.")}closeM();R();toast("Button added")};f?cmp(f,520,d=>{b.bi=d;fin()}):fin()};
+F.hup=i=>{i=+i;var a=S.hb;if(i>0){var t=a[i-1];a[i-1]=a[i];a[i]=t;save();R()}};
+F.hdn=i=>{i=+i;var a=S.hb;if(i<a.length-1){var t=a[i+1];a[i+1]=a[i];a[i]=t;save();R()}};
+AA.push("has","hup","hdn");
+var DD=t=>new Date((t||Date.now())+6*36e5).toISOString().slice(0,10),RA="";
+function recAct(){var u=U();if(!u||u.role=="admin")return;var d=DD(),id=d+"_"+u.id;
+if(CM){if(!db||RA==id)return;RA=id;try{if(localStorage.getItem("act_"+u.id)==d)return;localStorage.setItem("act_"+u.id,d)}catch(x){}db.doc("act/"+id).set({id:id,u:u.id,d:d,ts:Date.now()}).catch(()=>{});return}
+if(!S.act)S.act=[];if(!S.act.some(a=>a.id==id)){S.act.push({id:id,u:u.id,d:d,ts:Date.now()});save()}}
+var _rt=route;route=function(sc){_rt(sc);try{recAct()}catch(x){}};
+function actHtml(){var us=S.users.filter(x=>x.role!="admin"),A=S.act||[],t=Date.now(),days=n=>{var a=[];for(var i=n-1;i>=0;i--)a.push(DD(t-i*864e5));return a},
+dau=d=>new Set(A.filter(a=>a.d==d).map(a=>a.u)).size,su=d=>us.filter(x=>DD(x.ts)==d).length,uq=n=>{var s=days(n);return new Set(A.filter(a=>s.includes(a.d)).map(a=>a.u)).size},sn=n=>days(n).reduce((x,d)=>x+su(d),0),d0=DD(),d14=days(14),mx=Math.max(1,...d14.map(d=>Math.max(dau(d),su(d)))),
+bar=(v,c)=>'<div style="display:flex;align-items:center;gap:8px"><div style="height:8px;border-radius:4px;background:'+c+';width:'+Math.max(v?4:0,Math.round(v/mx*100))+'%"></div><b>'+v+'</b></div>';
+return '<h3 style="margin:26px 0 4px">Users &amp; Activity</h3><p class="mu">Active means a logged-in user opened the site that day (Bangladesh time). Counting starts from the day this feature goes live.</p>'+sg([["Total Signups",us.length],["Signups Today",su(d0)],["Signups (7 days)",sn(7)],["Signups (30 days)",sn(30)],["Active Today",dau(d0)],["Active (7 days)",uq(7)],["Active (30 days)",uq(30)]])
++tbl(["Date","New signups","Active users"],d14.slice().reverse().map(d=>[d,bar(su(d),"var(--red)"),bar(dau(d),"var(--red2)")]))}
+var _ov=AD.ov;AD.ov=()=>_ov()+actHtml();
+var RT,NT0=0,LP={};
+function rr(){clearTimeout(RT);var a=document.activeElement,t=a&&a.tagName,dirty=[...document.querySelectorAll("#app input,#app textarea,#app select")].some(i=>i.tagName=="SELECT"?i.selectedIndex!=Math.max(0,[...i.options].findIndex(o=>o.defaultSelected)):i.type!="checkbox"&&i.type!="file"&&i.value!==i.defaultValue);
+if($("mo").classList.contains("on")||/INPUT|TEXTAREA|SELECT/.test(t||"")||dirty){RT=setTimeout(rr,4000);return}R()}
+setInterval(()=>{if(CM&&cur=="dash"&&V.tab=="mt")rr()},30000);
+function R(){cur=0;route(0)}
+function route(sc){var p=location.hash.slice(1)||"home",u=U(),ac=p;theme();if(!FB.apiKey){$("app").innerHTML='<div class="wrap" style="padding:60px 18px"><div class="card"><h3>Setup required</h3><p class="mu">Paste your Firebase config in the line that starts with var FB at the top of this file to activate the site.</p></div></div>';return}
+if(p=="deposit"||p=="withdraw"){V.tab=p=="deposit"?"dp":"wd";p="dash"}if(p=="matches"||p=="profile"){V.tab=p=="matches"?"mt":"pf";p="dash"}
+if(p=="dash"&&!u)p="login";
+if(p=="admin"&&!(u&&u.role=="admin"))p=u?"dash":"login";
+if((p=="login"||p=="register")&&u)p=u.role=="admin"?"admin":"dash";if(SITE=="admin"){p=u&&u.role=="admin"?"admin":"login";ac=p}else if(p=="admin")p=u?"dash":"login";
+var hp=p=="home",pg=p.slice(0,3)=="pg-"?bpage:{login:login,register:regp,dash:dash,admin:admin,tournaments:tpage,about:ipage,rules:ipage,privacy:ipage,terms:ipage,contact:ipage,support:ipage,leaderboard:lpage}[p];
+if(!pg&&!hp){p="home";hp=1}hdr(u,ac);
+if(hp){var nw=cur!="home";if(nw){$("app").innerHTML=home();cur="home";SN=0;startSlider()}if(sc!==0)scrollTo(0,0)}
+else{$("app").innerHTML=pg(u);cur=p;if(sc!==0)scrollTo(0,0)}}
+load();
+route();
+addEventListener("hashchange",route);cloudBoot();
+</script></body></html>
